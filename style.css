@@ -815,3 +815,143 @@ html {
 .dropdown-menu-custom .dropdown-item:hover {
     background-color: rgba(255, 255, 255, 0.1);
 }
+
+/* Memory Game Section */
+.memory-game {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
+    max-width: 500px;
+    perspective: 1000px;
+}
+
+.memory-card {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    position: relative;
+    transform-style: preserve-3d;
+    transition: transform 0.6s;
+    cursor: pointer;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.memory-card.flip {
+    transform: rotateY(180deg);
+}
+
+.front-face,
+.back-face {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.front-face {
+    background-color: var(--primary-subtle-color);
+    color: var(--secondary-color);
+}
+
+.back-face {
+    background-color: var(--secondary-color);
+    transform: rotateY(180deg);
+    color: var(--primary-color);
+    font-size: 2.5rem;
+}
+
+.memory-card.matched {
+    transform: rotateY(180deg);
+    cursor: default;
+}
+
+.memory-card.matched .back-face {
+    background-color: #a8b894;
+    /* A lighter, muted green for matched cards */
+    color: var(--primary-color);
+}
+
+.memory-card.matched .front-face {
+    background-color: #a8b894;
+}
+
+/* Game Stats */
+.game-stats {
+    font-size: 1.2rem;
+    color: var(--text-dark);
+    font-weight: 600;
+}
+
+/* Win Modal Styles */
+.win-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 10000;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.4s ease, visibility 0.4s ease;
+}
+
+.win-modal-overlay.visible {
+    opacity: 1;
+    visibility: visible;
+}
+
+.win-modal-content {
+    background-color: var(--light-bg);
+    padding: 2rem 3rem;
+    border-radius: 15px;
+    text-align: center;
+    color: var(--text-dark);
+    transform: scale(0.8);
+    transition: transform 0.4s ease;
+}
+
+.win-modal-overlay.visible .win-modal-content {
+    transform: scale(1);
+}
+
+.win-modal-content h2 {
+    font-family: 'Syne', sans-serif;
+    color: var(--primary-color);
+    margin-bottom: 1rem;
+}
+
+.final-stats {
+    margin-top: 1rem;
+    font-size: 1.1rem;
+}
+
+@media (max-width: 576px) {
+    .memory-game {
+        gap: 0.5rem;
+    }
+
+    .game-stats {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+}
+
+.new-high-score-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.new-high-score-form input {
+    max-width: 250px;
+}
+}
